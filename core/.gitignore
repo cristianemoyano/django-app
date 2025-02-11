@@ -1,0 +1,30 @@
+# Django specific
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+
+# macOS specific
+.DS_Store
+
+# Environments
+.env
+venv/
+env/
+ENV/
+
+# Django migrations
+*/migrations/*
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+
+# Static files
+staticfiles/
+static/
+
+# Local settings
+local_settings.py
