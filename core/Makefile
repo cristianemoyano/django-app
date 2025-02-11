@@ -15,13 +15,13 @@ deploy:
 	docker stack deploy -c docker-compose-prod.yml django_app
 
 db-logs:
-	docker service logs django_app_db
+	docker service logs django_app_db -f
 
 web-logs:
-	docker service logs django_app_web
+	docker service logs django_app_web -f
 	
 nginx-logs:
-	docker service logs django_app_nginx
+	docker service logs django_app_nginx -f
 
 # update or add environment variable in a running service
 update-env:
@@ -33,3 +33,9 @@ swarm-status:
 
 deploy-portainer:
 	docker stack deploy -c docker-compose-portainer.yml portainer
+
+portainer-logs:
+	docker service logs portainer_portainer
+
+portainer:
+	open http://localhost:9000
