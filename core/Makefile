@@ -30,3 +30,6 @@ update-env:
 # check the status of the Docker Swarm
 swarm-status:
 	docker node ls
+
+deploy-portainer:
+	docker stack deploy -c docker-compose-portainer.yml portainer
