@@ -42,7 +42,7 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - static_volume:/app/static
+      - static_volume:/usr/share/nginx/html/static
       - ./core/nginx/conf.d:/etc/nginx/conf.d
     ports:
       - "80:80"
