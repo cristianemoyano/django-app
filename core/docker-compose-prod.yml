@@ -43,7 +43,7 @@ services:
         condition: on-failure
     volumes:
       - static_volume:/usr/share/nginx/html/static
-      - ./core/nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/conf.d:/etc/nginx/conf.d
     ports:
       - "80:80"
     depends_on:
