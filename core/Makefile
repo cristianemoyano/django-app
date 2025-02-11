@@ -13,3 +13,6 @@ publish:
 
 deploy:
 	docker stack deploy -c docker-compose-prod.yml django_app
+
+deploy-logs:
+	docker service logs django_app_web
