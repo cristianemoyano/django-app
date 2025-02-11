@@ -1,0 +1,68 @@
+services:
+  web:
+    image: clifford666/django-app:latest
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    command: >
+      gunicorn --bind=0.0.0.0:8000 --workers=3 core.wsgi:application
+    volumes:
+      - static_volume:/app/static
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_DEBUG: ${DJANGO_DEBUG}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}=value
+    env_file:
+      - .env-prod
+    depends_on:
+      - db
+    networks:
+      - app_network
+  
+  nginx:
+    image: nginx:latest
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - static_volume:/app/static
+      - ./core/nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    networks:
+      - app_network
+
+  db:
+    image: postgres:17
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    networks:
+      - app_network
+
+volumes:
+  static_volume:
+  postgres_data:
+
+networks:
+  app_network:
+    driver: overlay

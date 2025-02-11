@@ -10,6 +10,7 @@ db.sqlite3
 
 # Environments
 .env
+.env-prod
 .venv/
 env/
 ENV/
