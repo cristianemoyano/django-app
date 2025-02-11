@@ -16,3 +16,7 @@ deploy:
 
 deploy-logs:
 	docker service logs django_app_web
+
+# update or add environment variable in a running service
+update-env:
+	docker service update --env-add $(ENV_VAR) django_app_web
