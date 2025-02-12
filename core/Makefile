@@ -14,6 +14,12 @@ publish:
 deploy:
 	docker stack deploy -c docker-compose-prod.yml django_app
 
+# restart services
+restart:
+	docker service update --force django_app_web
+	docker service update --force django_app_db
+	docker service update --force django_app_nginx
+
 db-logs:
 	docker service logs django_app_db -f
 
