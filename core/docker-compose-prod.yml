@@ -2,15 +2,15 @@ services:
   web:
     image: clifford666/django-app:latest
     deploy:
-      replicas: 3
+      replicas: 2
       resources:
         limits:
           cpus: "0.5"
-          memory: 500M
+          memory: 700M
       restart_policy:
         condition: on-failure
     command: >
-      gunicorn --bind=0.0.0.0:8000 --workers=3 core.wsgi:application
+      gunicorn --bind=0.0.0.0:8000 --workers=1 core.wsgi:application
     volumes:
       - static_volume:/app/static
     environment:
